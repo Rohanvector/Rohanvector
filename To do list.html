@@ -1,0 +1,489 @@
+<!doctype html>
+<html lang="en"> 
+ <head> 
+  <meta charset="UTF-8"> 
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+  <meta name="keywords" content="to do list, online to do list, to do list app"> 
+  <meta name="description" content="Responsive, online To Do List App that can save the tasks into local storage.
+    Whenever you enter from a device, your information won't be lost unless clear local storage by clearing the history or doing something else."> 
+  <meta name="author" content="Okan Uregen"> 
+  <title>To Do List</title> 
+  <script src="https://kit.fontawesome.com/9c206210e0.js" crossorigin="anonymous"></script> 
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous"> 
+  <link rel="stylesheet" href="style.css"> 
+ <style type="text/css" id="dcoder_stylesheet">html {
+  font-size: 15px;
+}
+
+body {
+  background: -webkit-gradient(
+      linear,
+      right top,
+      left bottom,
+      from(#000080),
+      to(#fff)
+    )
+    fixed;
+}
+.card-header h5 img{
+  width: 30px;
+  margin-left: 10px; 
+}
+a {
+  color: black;
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: none;
+}
+.card {
+  background-color: #fff;
+}
+.card-body,
+ul {
+  background-color: rgb(246, 243, 255);
+  min-height: 0px;
+}
+.form-control {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+.btn {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+.list-item {
+  color: rgb(101, 101, 255);
+}
+.list-group-item {
+  background-color: inherit;
+  border: none;
+}
+.under-list-item {
+  font-size: 0.9rem;
+}
+.under-list-item .list-group-item {
+  color: rgb(78, 78, 78);
+}
+
+.under-list-input input {
+  height: calc(1em + 0.75rem);
+}
+
+.line-throught {
+  text-decoration: line-through;
+}</style></head> 
+ <body> 
+  <div class="mx-auto container mt-5 row"> 
+   <div class="task-add-box my-3 col-12 col-lg-4 order-lg-3"> 
+    <div class="card"> 
+     <div class="card-header"> 
+      <h5>Add New Task<img src="https://cdn-icons-png.flaticon.com/512/6404/6404805.png"></h5> 
+     </div> 
+     <div class="card-body px-4"> 
+      <form id="addingForm" class="form-group row" action=""> 
+       <input class="form-control col-10 col-md-11 col-lg-10" type="text" placeholder="Enter a task"> <button type="submit" class="btn btn-outline-success col-2 col-md-1 col-lg-2"><i class="fas fa-plus"></i></button> 
+      </form> 
+     </div> 
+    </div> 
+   </div> 
+   <div class="space col-0 col-lg-1 order-lg-2"></div> 
+   <div class="list-box my-3 col-12 col-lg-7 order-lg-1"> 
+    <div class="card"> 
+     <div class="card-header"> 
+      <h5 class="float-left">To Do List</h5> <a href="" class="float-right btn btn-outline-danger rounded" id="delAll">Delete All</a> 
+     </div> 
+     <div class="card-body p-0"> 
+      <ul id="mainList" class="list-group"> 
+       <div id="accordion"> 
+        <li id="upperLi" class="list-group-item d-none"> <a href="#collapse0" class="card-link list-item line-throught" data-toggle="collapse"> <!--Text Here--> </a> <a href="#" class="delete-item text-danger float-right fas fa-times mt-1 mx-1"></a> <a href="#" class="check text-success float-right fas fa-check mt-1 mx-4"></a> 
+         <div id="collapse0" class="collapse" data-parent="#accordion"> 
+          <div class="under-list-item"> 
+           <ul class="list-group"> 
+            <li id="innerLi" class="list-group-item"> <span class="m-0 p-0"><!--Text Here--></span> <a href="#" class="d-none delete-inner-item text-danger float-right fas fa-times mt-1 mx-1"></a> <a href="#" class="d-none inner-check text-success float-right fas fa-check mt-1 mx-4"></a> </li> 
+            <div class="mt-2 under-list-input px-4"> 
+             <form action="" class="form-group row"> 
+              <input class="form-control col-10 col-md-11" type="text" placeholder="Enter Subtask"> <button type="submit" class="btn-add-inner-task btn btn-primary col-2 col-md-1 p-0"> <i class="i-add-inner-task fas fa-plus"></i> </button> 
+             </form> 
+            </div> 
+           </ul> 
+          </div> 
+         </div> </li> 
+       </div> 
+      </ul> 
+     </div> 
+    </div> 
+   </div> 
+  </div> 
+  <script src="./script.js"></script> 
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script> 
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script> 
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script> 
+ 
+<script type="text/javascript" id="dcoder_script">let allTasks = [];
+let innerTasks = [];
+
+let count = 1; //for identical collapse id
+const upperLi = document.getElementById("upperLi");
+const innerLi = document.getElementById("innerLi");
+const mainForm = document.getElementById("addingForm");
+const mainInput = addingForm.children[0];
+const mainList = document.getElementById("mainList");
+const delAll = document.getElementById("delAll");
+
+eventListeners();
+loadLS();
+loadInnerTasks();
+
+// all Listeners
+function eventListeners() {
+  //submit event
+  mainForm.addEventListener("submit", addNewItem);
+
+  //task stufs
+  mainList.addEventListener("click", taskStufs);
+
+  //delete all tasks
+  delAll.addEventListener("click", deleteAll);
+}
+
+//to creat new task
+function createNewTask(text, check) {
+  //to clone upper visible li in html page
+  const newLi = upperLi.cloneNode(true);
+  //making visible the new li
+  newLi.classList.remove("d-none");
+  //removing id
+  newLi.setAttribute("id", "");
+
+  newLi.children[0].setAttribute("href", `#collapse${count}`); //identical colapseId
+
+  newLi.children[0].classList.remove("line-throught");
+
+  newLi.children[0].innerText = text;
+  if (check === true) {
+    newLi.children[0].classList.add("line-throught");
+  } else {
+    newLi.children[0].classList.remove("line-throught");
+  }
+  newLi.children[3].setAttribute("id", `collapse${count}`);
+
+  mainList.children[0].appendChild(newLi);
+
+  count++; //for different value of collapseId
+  mainInput.value = "";
+}
+
+//add New Task
+function addNewItem(e) {
+  e.preventDefault();
+  //entered text
+  const taskText = mainInput.value;
+
+  if (taskText != "") {
+    allTasks = JSON.parse(localStorage.getItem("allTasks"));
+    let c = false;
+    allTasks.forEach(function (item) {
+      if (item.text == taskText) {
+        c = true;
+        alert("Task Already Added");
+      }
+    });
+    if (c == false) {
+      createNewTask(taskText);
+      saveLS(taskText, 1);
+    }
+  }
+}
+
+//to add Inner Tasks
+function addInnerTask(upperText, mainText, check) {
+  //to clone inner visible li from html page
+  let tempLi = innerLi.cloneNode(true);
+  tempLi.setAttribute("id", "");
+
+  //making visible check and delete icons.
+  tempLi.childNodes.forEach(function (item, index) {
+    if (index == 3 || index == 5) {
+      item.classList.remove("d-none");
+    }
+  });
+  //to add the value to new li text
+  tempLi.children[0].innerText = mainText;
+
+  //check
+  if (check == true) {
+    tempLi.children[0].classList.add("line-throught");
+  } else {
+    tempLi.children[0].classList.remove("line-throught");
+  }
+
+  //adding new inner task to last of the list before form
+  let tempList;
+  for (let i = 1; i < mainList.children[0].children.length; i++) {
+    if (upperText == mainList.children[0].children[i].children[0].innerText) {
+      tempList = mainList.children[0].children[i];
+      break;
+    }
+  }
+
+  //adding inner to upper
+  tempList.lastElementChild.firstElementChild.firstElementChild.insertBefore(
+    tempLi,
+    tempList.lastElementChild.firstElementChild.firstElementChild
+      .lastElementChild
+  );
+}
+
+//delete and check a task - add new inner task
+function taskStufs(e) {
+  e.preventDefault();
+  //delete item
+  if (e.target.classList.contains("delete-item")) {
+    //remove LS
+
+    const text = e.target.parentElement.children[0].innerText;
+    saveLS(text, 0);
+
+    //remove inner tasks of it
+    let tempInnerList = JSON.parse(localStorage.getItem("innerTasks"));
+
+    tempInnerList.forEach(function (item) {
+      if (text == item.upperTaskText) {
+        saveInnerTasks(item.mainText, 0, text);
+      }
+    });
+
+    //remove from page
+    e.target.parentElement.remove();
+
+    // to check an inner task
+  } else if (e.target.classList.contains("delete-inner-item")) {
+    const upperText =
+      e.target.parentElement.parentElement.parentElement.parentElement
+        .parentElement.children[0].innerText;
+    //removing LS
+    saveInnerTasks(e.target.parentElement.children[0].innerText, 0, upperText);
+
+    //Removing Page
+    e.target.parentElement.remove();
+  } else if (e.target.classList.contains("check")) {
+    let tmpList = JSON.parse(localStorage.getItem("allTasks"));
+
+    if (
+      e.target.parentElement.children[0].classList.contains("line-throught")
+    ) {
+      for (let i = 0; i < tmpList.length; i++) {
+        if (tmpList[i].text == e.target.parentElement.children[0].innerText) {
+          tmpList[i].check = false;
+          localStorage.setItem("allTasks", JSON.stringify(tmpList));
+          break;
+        }
+      }
+
+      e.target.parentElement.children[0].classList.remove("line-throught");
+    } else {
+      for (let i = 0; i < tmpList.length; i++) {
+        if (tmpList[i].text == e.target.parentElement.children[0].innerText) {
+          tmpList[i].check = true;
+          localStorage.setItem("allTasks", JSON.stringify(tmpList));
+          break;
+        }
+      }
+
+      e.target.parentElement.children[0].classList.add("line-throught");
+    }
+
+    //adding inner task with button
+  } else if (e.target.classList.contains("inner-check")) {
+    let tmp = JSON.parse(localStorage.getItem("innerTasks"));
+
+    const upperText =
+      e.target.parentElement.parentElement.parentElement.parentElement
+        .parentElement.children[0].innerText;
+
+    if (
+      e.target.parentElement.children[0].classList.contains("line-throught")
+    ) {
+      tmp.forEach(function (item) {
+        if (
+          item.mainText == e.target.parentElement.children[0].innerText &&
+          item.upperTaskText == upperText
+        ) {
+          item.check = false;
+          localStorage.setItem("innerTasks", JSON.stringify(tmp));
+        }
+      });
+      e.target.parentElement.children[0].classList.remove("line-throught");
+    } else {
+      tmp.forEach(function (item) {
+        if (
+          item.mainText == e.target.parentElement.children[0].innerText &&
+          item.upperTaskText == upperText
+        ) {
+          item.check = true;
+          localStorage.setItem("innerTasks", JSON.stringify(tmp));
+        }
+      });
+      e.target.parentElement.children[0].classList.add("line-throught");
+    }
+  } else if (e.target.classList.contains("btn-add-inner-task")) {
+    //getting value of input
+    const text = e.target.parentElement.childNodes[1].value;
+
+    if (text != "") {
+      innerTasks = JSON.parse(localStorage.getItem("innerTasks"));
+
+      //getting upper text
+      const upperText =
+        e.target.parentElement.parentElement.parentElement.parentElement
+          .parentElement.parentElement.children[0].innerText;
+
+      let c = true;
+      innerTasks.forEach(function (item) {
+        if (item.mainText == text && item.upperTaskText == upperText) {
+          c = false;
+          alert("Task Already Added");
+        }
+      });
+      if (c == true) {
+        //adding innerTask List
+        innerTasks.push({
+          upperTaskText: upperText,
+          mainText: text,
+          check: false,
+        });
+        addInnerTask(upperText, text);
+        saveInnerTasks(innerTasks[innerTasks.length - 1], 1);
+      }
+    }
+    //clear input
+    e.target.parentElement.childNodes[1].value = "";
+
+    //adding inner task with i tag that in the button
+    //same things with adding with btn
+  } else if (e.target.classList.contains("i-add-inner-task")) {
+    let text = e.target.parentElement.parentElement.childNodes[1].value;
+
+    if (text != "") {
+      //getting upper text
+      const upperText =
+        e.target.parentElement.parentElement.parentElement.parentElement
+          .parentElement.parentElement.parentElement.children[0].innerText;
+
+      //adding innerTask List
+      innerTasks.push({ upperTaskText: upperText, mainText: text });
+
+      addInnerTask(upperText, text);
+      saveInnerTasks(innerTasks[innerTasks.length - 1], 1);
+
+      //clear input
+      e.target.parentElement.parentElement.childNodes[1].value = "";
+    }
+  }
+}
+//delete all
+function deleteAll(e) {
+  e.preventDefault();
+
+  let list =
+    e.target.parentElement.parentElement.children[1].children[0].childNodes[1]
+      .children;
+
+  while (list.length != 1) {
+    //block the remove main invisible li in html
+    list[list.length - 1].remove();
+  }
+  saveLS("", -1);
+  saveInnerTasks("", -1);
+}
+
+//loading Main Tasks
+function loadLS() {
+  if (localStorage.getItem("allTasks") === null) {
+    localStorage.setItem("allTasks", JSON.stringify(allTasks));
+  } else {
+    allTasks = JSON.parse(localStorage.getItem("allTasks"));
+
+    allTasks.forEach(function (item) {
+      if (item != "") {
+        createNewTask(item.text, item.check);
+      }
+    });
+  }
+}
+
+//loading Inner Tasks
+function loadInnerTasks() {
+  if (localStorage.getItem("innerTasks") === null) {
+    localStorage.setItem("innerTasks", JSON.stringify(innerTasks));
+  } else {
+    innerTasks = JSON.parse(localStorage.getItem("innerTasks"));
+
+    innerTasks.forEach(function (item) {
+      if (item.mainText != "") {
+        addInnerTask(item.upperTaskText, item.mainText, item.check);
+      }
+    });
+  }
+}
+
+//saving Main Tasks
+function saveLS(text, index) {
+  //if index = 1 add, = 0 remove, =-1 remove all
+  if (index == -1) {
+    localStorage.removeItem("allTasks");
+    allTasks.length = 0;
+    loadLS();
+  } else if (index == 0) {
+    const tmp = JSON.parse(localStorage.getItem("allTasks"));
+    let c;
+    tmp.forEach(function (item, ind) {
+      if (item.text == text) c = ind;
+    });
+    tmp.splice(c, 1);
+    localStorage.setItem("allTasks", JSON.stringify(tmp));
+
+    //delete inner tasks whose upper text that
+    const tmp2 = JSON.parse(localStorage.getItem("innerTasks"));
+
+    for (let i = 0; i < tmp2.length; i++) {
+      if (tmp2[i].upperTaskText == text) {
+        saveInnerTasks(tmp[i], 0);
+      }
+    }
+  } else if (index == 1) {
+    const tmp = JSON.parse(localStorage.getItem("allTasks"));
+    tmp.push({ text: text, check: false });
+    localStorage.setItem("allTasks", JSON.stringify(tmp));
+  }
+}
+
+//saving Inner Tasks
+function saveInnerTasks(item, index, upperText = "") {
+  //if index = 1 add, = 0 remove, =-1 remove all, 2 check, =3 removeCheck
+  if (index == -1) {
+    localStorage.removeItem("innerTasks");
+    innerTasks.length = 0;
+    loadInnerTasks();
+  } else if (index == 0) {
+    const tmp = JSON.parse(localStorage.getItem("innerTasks"));
+
+    let cont = false;
+    let c;
+    tmp.forEach(function (e, ind) {
+      if (e.mainText == item && e.upperTaskText == upperText) {
+        c = ind;
+        cont = true;
+      }
+    });
+    if (cont) {
+      tmp.splice(c, 1);
+      localStorage.setItem("innerTasks", JSON.stringify(tmp));
+    }
+  } else if (index == 1) {
+    const tmp = JSON.parse(localStorage.getItem("innerTasks"));
+    tmp.push(item);
+    localStorage.setItem("innerTasks", JSON.stringify(tmp));
+  }
+}</script></body></html>
